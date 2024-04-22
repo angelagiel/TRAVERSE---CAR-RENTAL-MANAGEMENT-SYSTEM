@@ -52,7 +52,7 @@ class DBHandler:
             new_account.license_number = row[6]
             accounts.append(new_account)
 
-
+        return accounts
 
     def close(self):
         self.conn.close()
