@@ -69,9 +69,16 @@ class LoginPage(tk.Frame):
         self.entry_captcha = tk.Entry(self, width=53, fg='black', border=1)
         self.button_captcha = tk.Button(self, text="Submit", width=12, cursor='hand2', bg='#4caf50', command=self.login)
         
+        #----- MENU ADMIN
+        self.menu_button = tk.Button(self, text='MENU', width=10, height=2, command=self.go_to_admin_dashboard)
+        self.menu_button.grid(row=0, column=0, sticky='s')
+        
         self.hide_customer_widgets()
         self.hide_captcha_section()
 
+    def go_to_admin_dashboard(self): 
+        self.parent.change_window('Admin_Dashboard')
+        
     def hide_customer_widgets(self): 
         self.label.grid_forget()
         self.signup_btn.grid_forget()
@@ -219,8 +226,7 @@ class LoginPage(tk.Frame):
     
     def go_to_signup_page(self): 
         self.parent.change_window('Signup_Page')
-        
-        
+              
 class SignupPage(tk.Frame): 
     def __init__(self, master): 
         tk.Frame.__init__(self, master)
@@ -229,3 +235,71 @@ class SignupPage(tk.Frame):
          #----- LOGO IMAGE 
         self.logo = tk.PhotoImage(file="traverse logo.png")
         tk.Label(self, image=self.logo).grid(row=0, column=0)
+             
+class AdminDashboard(tk.Frame): 
+    def __init__(self, master): 
+        tk.Frame.__init__(self, master)
+        self.parent = master
+        self.configure(bg='white')
+        
+        #------ MENU LOGO 
+        self.logo = tk.PhotoImage(file='3traverse logo.png')
+        tk.Label(self, image=self.logo, bg='white').grid(row=0, column=0, sticky='nsew', pady=(0, 0))
+        
+        #----- ADMIN MENU 
+        self.heading = tk.Label(self, text='Admin Menu', fg='#4caf50', font=('Roboto', 50, 'bold'), bg='white')
+        self.heading.grid(row=0, column=0, padx=(450, 450), sticky='n', pady=(270,0))
+
+        #----- FLEET MANAGEMENT 
+        self.fleet_button = tk.Button(self, text='Manage Car Fleet', fg='white', font=('Inter', 18), bg='#4caf50', width=35, command=self.go_to_fleet_page)
+        self.fleet_button.grid(row=1, column=0, pady=(30, 10))
+        
+        #----- MEMBER MANAGEMENT
+        self.revenue_button = tk.Button(self, text='View Members Information', fg='white', bg='#4caf50', font=('Inter', 18), width=35, command=self.go_to_members_page)
+        self.revenue_button.grid(row=2, column=0, pady=(10,10))
+        
+        #----- RENT REVENUE
+        self.members_button = tk.Button(self, text='View Rent Revenue', fg='white', bg='#4caf50', font=('Inter', 18), width=35, command=self.go_to_revenue_page)
+        self.members_button.grid(row=3, column=0, pady=(10,10))
+        
+        #----- LOGOUT 
+        self.logout_button = tk.Button(self, text='Logout', fg='white', bg='#4caf50', font=('Inter', 18), width=35, command=self.go_to_login_page)
+        self.logout_button.grid(row=4, column=0, pady=(10,10))
+        
+    def go_to_login_page(self): 
+        self.parent.change_window('Login_Page')
+
+    def go_to_fleet_page(self): 
+        self.parent.change_window('Fleet_Page')
+        
+    def go_to_members_page(self): 
+        self.parent.change_window('Members_Page')
+    
+    def go_to_revenue_page(self): 
+        self.parent.change_window('Revenue_Page')
+    
+class FleetPage(tk.Frame): 
+    def __init__(self, master): 
+        tk.Frame.__init__(self, master)
+        self.parent = master
+        self.configure(bg='white')
+        
+        self.logo = tk.PhotoImage(file='250traverse logo.png')
+        tk.Label(self, image=self.logo, bg='white').grid(row=0, column=0, sticky='w', rowspan=8, padx=(200,0), pady=(0,0))
+        
+        #----- HEADING PAGE TITLE
+        self.heading = tk.Label(self, text='Traverse Car Fleet', fg='#4caf50', font=('Roboto', 40, 'bold'), bg='white')
+        self.heading.grid(row=0, column=1, padx=(0,0), sticky='e', pady=(100,0))
+          
+class RevenuePage(tk.Frame): 
+    def __init__(self, master): 
+        tk.Frame.__init__(self, master)
+        self.parent = master
+        self.configure(bg='white')
+        
+        self.logo = tk.PhotoImage(file='250traverse logo.png')
+        tk.Label(self, image=self.logo, bg='white').grid(row=0, column=0, sticky='w', rowspan=8, padx=(200,0), pady=(0,0))
+        
+        #----- HEADING PAGE TITLE
+        self.heading = tk.Label(self, text='Car Rental Revenue', fg='#4caf50', font=('Roboto', 40, 'bold'), bg='white')
+        self.heading.grid(row=0, column=1, padx=(0,0), sticky='e', pady=(100,0))
