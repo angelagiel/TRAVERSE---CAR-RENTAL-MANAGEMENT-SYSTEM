@@ -63,18 +63,16 @@ class MembersPage(tk.Frame):
         
         #------ MENU BUTTON
         self.menu_button = tk.Button(self, text='Menu', width=15, fg='#4caf50', bg='white', border=0, font=('Inter', 15, 'underline'), command=self.go_to_admin_dashboard)
-        self.menu_button.grid(row=3, column=0, padx=(0,0))
+        self.menu_button.grid(row=3, column=0, padx=(300,0), sticky='w',pady=(20,0))
         
         #------ UPDATE MEMBER INFO
         self.update_button = tk.Button(self, text='Update', width=15, fg='#4caf50', bg='white', border=0, font=('Inter', 15, 'underline'), command=self.go_to_update_form)
-        self.update_button.grid(row=3, column=0, padx=(500, 100))
+        self.update_button.grid(row=3, column=0, padx=(100, 100), pady=(20,0))
         
         #------ DELETE MEMBER
         self.delete_button = tk.Button(self, text='Delete', width=15, fg='#4caf50', bg='white', border=0, font=('Inter', 15, 'underline'), command=self.delete_customer)
-        self.delete_button.grid(row=3, column=0, padx=(700, 100))
+        self.delete_button.grid(row=3, column=0, padx=(400, 100), pady=(20,0))
         
-        
-    
     def update_table(self, event=None):
         self.get_employee_list()
 
