@@ -15,9 +15,11 @@ class MainWindow(tk.Tk):
         self.frames['Fleet_Page'] = pages.FleetPage(self)
         self.frames['Members_Page'] = members_page.MembersPage(self)
         self.frames['Revenue_Page'] = pages.RevenuePage(self)
+        self.frames['Update_Form'] = pages.UpdateForm(self)
         
         # self.change_window('Login_Page')
-        self.change_window('Members_Page')
+        # self.change_window('Members_Page')
+        self.change_window('Admin_Dashboard')
 
     def change_window(self, name, **kwargs): 
         print("Changine the window to", name)
