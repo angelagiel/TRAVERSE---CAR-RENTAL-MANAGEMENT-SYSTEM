@@ -28,7 +28,7 @@ class MainWindow(tk.Tk):
         for frame in self.frames.values(): 
             frame.grid_forget()
 
-        # self.frames[name].on_return(**kwargs)
+        self.frames[name].on_return(**kwargs)
         self.frames[name].grid(row=0, column=0)
 
 root = MainWindow()

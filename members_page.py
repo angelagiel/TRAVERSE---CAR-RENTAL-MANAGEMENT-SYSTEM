@@ -112,6 +112,16 @@ class MembersPage(tk.Frame):
     
     def go_to_admin_dashboard(self): 
         self.parent.change_window('Admin_Dashboard')
+        
+    def go_to_update_form(self):
+        selected_items = self.table.selection()
+        if len(selected_items) == 0:
+            messagebox.showwarning("Update Customer", "Select a customer to update.")
+            return
+
+        for item in selected_items:
+            id = self.table.item(item)['values'][0]
+            self.parent.change_window('Update_Form', customer_id=id)
     
-    def go_to_update_form(self): 
-        self.parent.change_window('Update_Form')
+    def on_return(self): 
+        self.update_table()
