@@ -304,19 +304,3 @@ class RevenuePage(tk.Frame):
         self.heading = tk.Label(self, text='Car Rental Revenue', fg='#4caf50', font=('Roboto', 40, 'bold'), bg='white')
         self.heading.grid(row=0, column=1, padx=(0,0), sticky='e', pady=(100,0))
         
-
-
-
-class UpdateForm(tk.Frame): 
-    def __init__(self, master): 
-        tk.Frame.__init__(self, master)
-        self.parent = master
-        self.configure(bg='white')
-        
-        self.logo = tk.PhotoImage(file='250traverse logo.png')
-        tk.Label(self, image=self.logo, bg='white').grid(row=0, column=0, sticky='w', rowspan=8, padx=(200,0), pady=(0,0))
-        
-        #----- HEADING PAGE TITLE
-        self.heading = tk.Label(self, text='Update Member Information', fg='#4caf50', font=('Roboto', 40, 'bold'), bg='white')
-        self.heading.grid(row=0, column=1, padx=(0,0), sticky='e', pady=(100,0))
-        

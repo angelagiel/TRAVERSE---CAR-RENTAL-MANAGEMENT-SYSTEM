@@ -33,7 +33,14 @@ class DBHandler:
         values = (accounts.account_type, accounts.name, accounts.email, accounts.contact, accounts.password, accounts.license_number)
         self.cursor.execute(query, values)
         self.conn.commit()
+        
+    def delete_customer(self, id: int): 
+        query = f"DELETE FROM {self.accounts_table} WHERE id = ?"
+        values = (id, )
 
+        self.cursor.execute(query, values)
+        self.conn.commit()
+        
     def search_employee(self, key):
         key = '%' + key + '%'
         query = f'SELECT * FROM {self.accounts_table} WHERE name LIKE ?'

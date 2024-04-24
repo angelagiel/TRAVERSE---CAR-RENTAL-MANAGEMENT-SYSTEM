@@ -1,6 +1,7 @@
 import tkinter as tk 
 import pages
 import members_page
+import updateform_page
 
 class MainWindow(tk.Tk):
     def __init__(self): 
@@ -15,11 +16,12 @@ class MainWindow(tk.Tk):
         self.frames['Fleet_Page'] = pages.FleetPage(self)
         self.frames['Members_Page'] = members_page.MembersPage(self)
         self.frames['Revenue_Page'] = pages.RevenuePage(self)
-        self.frames['Update_Form'] = pages.UpdateForm(self)
+        self.frames['Update_Form'] = updateform_page.UpdateForm(self)
         
         # self.change_window('Login_Page')
-        # self.change_window('Members_Page')
-        self.change_window('Admin_Dashboard')
+        self.change_window('Members_Page')
+        self.change_window('Update_Form')
+        # self.change_window('Admin_Dashboard')
 
     def change_window(self, name, **kwargs): 
         print("Changine the window to", name)

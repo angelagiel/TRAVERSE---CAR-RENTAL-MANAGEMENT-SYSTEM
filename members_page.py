@@ -88,12 +88,30 @@ class MembersPage(tk.Frame):
         db_conn = database_handler.DBHandler()
         self.employee_list = db_conn.search_employee(key)
         db_conn.close()
+    
+    def delete_customer(self): 
+        selected_items = self.table.selection()
+
+        if len(selected_items) == 0: 
+            messagebox.showwarning('Delete Customer', 'Please Select a Customer to Delete')
+            return
         
+        proceed = messagebox.askyesno('Delete Customer', 'Are you sure you want to delete?')
+        
+        if not proceed: 
+            return
+        
+        for item in selected_items: 
+            id = self.table.item(item)['values'][0]
+
+            db_conn = database_handler.DBHandler()
+            db_conn.delete_customer(id)
+            db_conn.close()
+            
+            self.update_table()
+    
     def go_to_admin_dashboard(self): 
         self.parent.change_window('Admin_Dashboard')
     
     def go_to_update_form(self): 
         self.parent.change_window('Update_Form')
-    
-    def delete_customer(self): 
-        pass
