@@ -265,6 +265,9 @@ class AdminDashboard(tk.Frame):
         #----- LOGOUT 
         self.logout_button = tk.Button(self, text='Logout', fg='white', bg='#4caf50', font=('Inter', 18), width=35, command=self.go_to_login_page)
         self.logout_button.grid(row=4, column=0, pady=(10,10))
+    
+    def on_return(self, **kwargs): 
+        pass
         
     def go_to_login_page(self): 
         self.parent.change_window('Login_Page')

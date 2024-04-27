@@ -87,12 +87,19 @@ class UpdateForm(tk.Frame):
     
     def on_return(self, **kwargs):
         # self.id = kwargs['customer_id']
+        
+        print("Received kwargs:", kwargs)
+        self.id = kwargs.get('customer_id', None)
+        if self.id is None:
+            print("Error: 'customer_id' not found in kwargs")
+            return
+        
         self.id = kwargs['customer_id']
         self.id_field.config(text=self.id)
 
         db_conn = database_handler.DBHandler()
         customer_data = db_conn.read_one_customer(self.id)
-        db_conn.close()
+        db_conn.close
 
         self.clear_fields()
 
@@ -101,7 +108,7 @@ class UpdateForm(tk.Frame):
         self.contact_field.insert(0, customer_data.contact)
         self.license_field.insert(0, customer_data.license_number)
         self.code_field.insert(0, customer_data.password)
-        self.confirm_field.insert(0, customer_data.password)
+        self.confirm_field.insert(0, 'Confirm Password')
         
 
     def clear_fields(self):
@@ -110,6 +117,7 @@ class UpdateForm(tk.Frame):
         self.contact_field.delete(0, tk.END)
         self.license_field.delete(0, tk.END)
         self.code_field.delete(0, tk.END)
+        self.confirm_field.delete(0, tk.END)
 
     def validate_date(self):
         #Input validation
@@ -138,11 +146,10 @@ class UpdateForm(tk.Frame):
             
             self.go_to_members_page()
         except ValueError:
-            messagebox.showerror("Update Employee", "Age and Salary Rate must be numbers")
+            messagebox.showerror("Update Customer", "Value Error")
     
     def go_to_members_page(self):
         self.parent.change_window('Members_Page')
-    
     
     def on_enter(self, e):
         widget = e.widget
