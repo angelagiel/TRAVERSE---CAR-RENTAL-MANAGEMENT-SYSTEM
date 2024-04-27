@@ -22,6 +22,19 @@ CREATE TABLE `cars` (
   `location` TEXT NOT NULL,
   PRIMARY KEY (`id`)
 );
+CREATE TABLE `rent` (
+  `id` INTEGER NOT NULL,
+  `car_image` BLOB NOT NULL,
+  `brand` TEXT NOT NULL,
+  `model` TEXT NOT NULL,
+  `plate_number` TEXT NOT NULL,
+  `fuel_type` TEXT NOT NULL,
+  `availability` INTEGER NOT NULL,
+  `cost_per_day` INTEGER NOT NULL,
+  `seating_capacity` INTEGER NOT NULL,
+  `location` TEXT NOT NULL,
+  PRIMARY KEY (`id`)
+);
 
 
 

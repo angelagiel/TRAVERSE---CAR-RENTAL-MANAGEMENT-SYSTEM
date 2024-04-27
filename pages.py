@@ -8,6 +8,7 @@ import random
 from database_handler import DBHandler
 import re 
 from datetime import datetime, timedelta
+from PIL import Image, ImageTk
 
 class LoginPage(tk.Frame): 
     def __init__(self, master): 
@@ -263,8 +264,18 @@ class AdminDashboard(tk.Frame):
         self.members_button.grid(row=3, column=0, pady=(10,10))
         
         #----- LOGOUT 
-        self.logout_button = tk.Button(self, text='Logout', fg='white', bg='#4caf50', font=('Inter', 18), width=35, command=self.go_to_login_page)
+        
+        image = Image.open("3traverse logo.png")
+        image = image.resize((50, 50))
+        self.tk_image = ImageTk.PhotoImage(image)
+        self.logout_button = tk.Button(self, image=self.tk_image, width=100,command=self.go_to_login_page)
+        
+        
+        # self.logout_button = tk.Button(self, text='Logout', fg='white', bg='#4caf50', font=('Inter', 18), width=35, command=self.go_to_login_page)
         self.logout_button.grid(row=4, column=0, pady=(10,10))
+        
+        
+        
     
     def on_return(self, **kwargs): 
         pass
@@ -280,6 +291,7 @@ class AdminDashboard(tk.Frame):
     
     def go_to_revenue_page(self): 
         self.parent.change_window('Revenue_Page')
+        
     
 class FleetPage(tk.Frame): 
     def __init__(self, master): 

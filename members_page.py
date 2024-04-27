@@ -8,6 +8,7 @@ import random
 from database_handler import DBHandler
 import re 
 from datetime import datetime, timedelta
+from PIL import Image, ImageTk
 
 
 class MembersPage(tk.Frame): 
@@ -79,10 +80,13 @@ class MembersPage(tk.Frame):
         self.table.delete(*self.table.get_children())
 
         for account in self.employee_list:
+        
             if account.account_type == 'customer':
                 row = (account.id, account.name, account.email, account.contact, account.license_number)
                 self.table.insert('', tk.END, values=row)
 
+
+    
     def get_employee_list(self):
         key = self.search_field.get()
         db_conn = database_handler.DBHandler()
