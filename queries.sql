@@ -56,11 +56,11 @@ VALUES ('customer', 'Abel Tesfaye', 'weeknd@gmail.com', 09014024874, 'Password12
 -- VALUES ('customer', 'Elon Musk', 'elon@gmail.com', 09394024874, 'Password123!', 'DO1-15-125559');
 
 
-INSERT INTO `cars` (`id`, `car_image`, `brand`, `model`, `plate_number`, `fuel_type`, `availability`, `cost_per_day`, `seating_capacity`, `location`)
+INSERT INTO `cars` (`car_image`, `brand`, `model`, `plate_number`, `fuel_type`, `availability`, `cost_per_day`, `seating_capacity`, `location`)
 VALUES
-(1, 'binary_data_for_car1', 'Toyota', 'Camry', 'ABC123', 'Petrol', 1, 2500, 5, 'Angeles, Pampanga'),
-(2, 'binary_data_for_car2', 'Honda', 'Civic', 'XYZ456', 'Diesel', 1, 2000, 5, 'Angeles, Pampanga'),
-(3, 'binary_data_for_car3', 'Ford', 'Focus', 'DEF789', 'Petrol', 0, 3000, 5, 'Angeles, Pampanga');
+('binary_data_for_car1', 'Toyota', 'Camry', 'ABC123', 'Petrol', 1, 2500, 5, 'Angeles, Pampanga'),
+('binary_data_for_car2', 'Honda', 'Civic', 'XYZ456', 'Diesel', 1, 2000, 5, 'Angeles, Pampanga'),
+('binary_data_for_car3', 'Ford', 'Focus', 'DEF789', 'Petrol', 0, 3000, 5, 'Angeles, Pampanga');
 
 
 

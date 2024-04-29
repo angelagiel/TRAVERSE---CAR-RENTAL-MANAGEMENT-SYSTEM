@@ -112,8 +112,13 @@ class DBHandler:
                 cars.append(new_car)
 
             return cars
+        
+    def delete_car(self, id : int):
+        query = f"DELETE FROM {self.carfleet_table} WHERE id = ?"
+        values = (id, )
 
-
+        self.cursor.execute(query, values)
+        self.conn.commit()
 
 
 
