@@ -1,3 +1,7 @@
+from datetime import datetime
+
+
+
 class Accounts:
     def __init__(self):
         self.id = 0
@@ -21,3 +25,12 @@ class Cars:
         self.cost_per_day = 0
         self.seating_capacity = 0
         self.location = ''
+
+class Rental: 
+    def __init__(self): 
+        self.id = 0
+        self.rental_status = ''
+        self.rented_model = ''
+        self.rental_period = 0  # Initialize with 0
+        self.rent_date = datetime.now().date()  # Initialize with current date
+        self.rent_time = datetime.now().time()  # Initialize with current time

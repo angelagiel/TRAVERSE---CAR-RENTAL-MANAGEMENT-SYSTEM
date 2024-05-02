@@ -6,10 +6,12 @@ class DBHandler:
         self.db_name = 'database.db'
         self.accounts_table = 'accounts'
         self.carfleet_table = 'cars'
+        self.rentals_table = 'rental'
 
         self.conn = sqlite3.connect(self.db_name)
         self.cursor = self.conn.cursor()
-    
+
+#---------- ACCOUNT DATABASE
     def read_accounts(self):
         accounts = []
 
@@ -119,9 +121,71 @@ class DBHandler:
 
         self.cursor.execute(query, values)
         self.conn.commit()
+        
+    def read_one_car(self, id : int): 
+        query = f"SELECT * FROM {self.carfleet_table} WHERE id = ?" 
+        values = (id, )
+        self.cursor.execute(query, values)
+        
+        for row in self.cursor: 
+            new_car = models.Cars()
+            new_car.id= row[0]
+            new_car.car_image = row[1]
+            new_car.brand = row[2]
+            new_car.model = row[3]
+            new_car.plate_number = row[4]
+            new_car.fuel_type = row[5]
+            new_car.availability = row[6]
+            new_car.cost_per_day = row[7]
+            new_car.seating_capacity = row[8]
+            new_car.location = row[9]
+            return new_car
 
+    def update_car(self, car : models.Cars): 
+        query = f"UPDATE cars SET brand = ?, model = ?, plate_number = ?, fuel_type = ?, availability = ?, cost_per_day = ?, seating_capacity = ?, location = ? WHERE id = ? "
+        values = (car.brand, car.model, car.plate_number, car.fuel_type, car.availability, car.cost_per_day, car.seating_capacity, car.location, car.id)
+        
+        self.cursor.execute(query, values)
+        self.conn.commit()
 
+#---------- RENTAL DATABASE
+    def search_rental(self): 
+        # key = '%' + key + '%'
+        # query = f'SELECT * FROM {self.rentals_table} WHERE rental_status LIKE ?'
+        # values = (key, )
+        # self.cursor.execute(query, values)
 
+        query = f'SELECT * FROM {self.rentals_table}'
+        self.cursor.execute(query)
+        
+        rentals = []
+        for row in self.cursor:
+            new_rental = models.Rental()
+            new_rental.id = row[0]
+            new_rental.rental_status = row[1]
+            new_rental.rented_model = row[2]
+            new_rental.rental_period = row[3]
+            new_rental.rent_date = row[4]
+            new_rental.rent_time = row[5]
+
+            rentals.append(new_rental)
+
+        return rentals
+
+    def read_one_rental(self, id : int): 
+        query = f"SELECT * FROM {self.carfleet_table} WHERE id = ?" 
+        values = (id, )
+        self.cursor.execute(query, values)
+        
+        for row in self.cursor: 
+            new_rental = models.Rental()
+            new_rental.id= row[0]
+            new_rental.rental_status = row[1]
+            new_rental.rented_model = row[2]
+            new_rental.rental_period = row[3]
+            new_rental.rent_date = row[4]
+            new_rental.rent_time = row[4]
+            return new_rental
 
 
 

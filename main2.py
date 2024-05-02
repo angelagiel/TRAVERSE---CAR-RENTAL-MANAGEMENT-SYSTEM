@@ -4,6 +4,7 @@ import members_page
 import updateform_page
 import fleet_page
 import car_page
+# import rent_car
 
 class MainWindow(tk.Tk):
     def __init__(self): 
@@ -20,12 +21,13 @@ class MainWindow(tk.Tk):
         self.frames['Update_Form'] = updateform_page.UpdateForm(self)
         self.frames['Fleet_Page'] = fleet_page.FleetPage(self)
         self.frames['View_Car'] = car_page.CarPage(self)
+        # self.frames['Rent_Car'] = rent_car.RentCar(self)
         
-        # self.change_window('Login_Page')
         # self.change_window('Update_Form')
         # self.change_window('Members_Page')
+        # self.change_window('View_Car')
+        # self.change_window('Login_Page')
         self.change_window('Admin_Dashboard')
-        self.change_window('View_Car')
 
     def change_window(self, name, **kwargs): 
         print("Changine the window to", name)

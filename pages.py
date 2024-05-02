@@ -252,26 +252,26 @@ class AdminDashboard(tk.Frame):
         self.heading.grid(row=0, column=0, padx=(450, 450), sticky='n', pady=(270,0))
 
         #----- FLEET MANAGEMENT 
-        self.fleet_button = tk.Button(self, text='Manage Car Fleet', fg='white', font=('Inter', 18), bg='#4caf50', width=35, command=self.go_to_fleet_page)
+        self.fleet_button = tk.Button(self, text='Car Fleet Management', fg='white', font=('Inter', 18), bg='#4caf50', width=35, command=self.go_to_fleet_page)
         self.fleet_button.grid(row=1, column=0, pady=(30, 10))
         
         #----- MEMBER MANAGEMENT
-        self.revenue_button = tk.Button(self, text='View Members Information', fg='white', bg='#4caf50', font=('Inter', 18), width=35, command=self.go_to_members_page)
+        self.revenue_button = tk.Button(self, text='Customer Management', fg='white', bg='#4caf50', font=('Inter', 18), width=35, command=self.go_to_members_page)
         self.revenue_button.grid(row=2, column=0, pady=(10,10))
         
         #----- RENT REVENUE
-        self.members_button = tk.Button(self, text='View Rent Revenue', fg='white', bg='#4caf50', font=('Inter', 18), width=35, command=self.go_to_revenue_page)
-        self.members_button.grid(row=3, column=0, pady=(10,10))
+        self.members_button = tk.Button(self, text='Rent Car', fg='white', bg='#4caf50', font=('Inter', 18), width=35, command=self.go_to_revenue_page)
+        # self.members_button.grid(row=3, column=0, pady=(10,10))
         
         #----- LOGOUT 
         
-        image = Image.open("3traverse logo.png")
-        image = image.resize((50, 50))
-        self.tk_image = ImageTk.PhotoImage(image)
-        self.logout_button = tk.Button(self, image=self.tk_image, width=100,command=self.go_to_login_page)
+        # image = Image.open("3traverse logo.png")
+        # image = image.resize((50, 50))
+        # self.tk_image = ImageTk.PhotoImage(image)
+        # self.logout_button = tk.Button(self, image=self.tk_image, width=100,command=self.go_to_login_page)
         
         
-        # self.logout_button = tk.Button(self, text='Logout', fg='white', bg='#4caf50', font=('Inter', 18), width=35, command=self.go_to_login_page)
+        self.logout_button = tk.Button(self, text='Logout', fg='white', bg='#4caf50', font=('Inter', 18), width=35, command=self.go_to_login_page)
         self.logout_button.grid(row=4, column=0, pady=(10,10))
         
         

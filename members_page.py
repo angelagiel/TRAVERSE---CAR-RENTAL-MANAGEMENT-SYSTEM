@@ -33,7 +33,7 @@ class MembersPage(tk.Frame):
         self.search_field.bind('<KeyRelease>', self.update_table)
         
         #----- TABLE 
-        columns = ('id', 'name', 'email', 'contact', 'license_number', 'rental status', 'model', 'plate number', 'rental period')
+        columns = ('id', 'name', 'email', 'contact', 'license_number', 'rental status', 'rented model', 'plate number', 'rental period')
         
         self.table = ttk.Treeview(self, columns=columns, show='headings')
         
@@ -43,7 +43,7 @@ class MembersPage(tk.Frame):
         self.table.heading('contact', text='Contact No.')
         self.table.heading('license_number', text='License Number')
         self.table.heading('rental status', text='Rental Status')
-        self.table.heading('model', text='Model')
+        self.table.heading('rented model', text='Rented Model')
         self.table.heading('plate number', text='Plate Number')
         self.table.heading('rental period', text='Rental Period')
         
@@ -56,7 +56,7 @@ class MembersPage(tk.Frame):
         self.table.column('contact', width=100)
         self.table.column('license_number', width=120)
         self.table.column('rental status', width=100)
-        self.table.column('model', width=120)
+        self.table.column('rented model', width=120)
         self.table.column('plate number', width=120)
         self.table.column('rental period', width=120)
         self.table.tag_configure("center", anchor="center")
@@ -76,15 +76,20 @@ class MembersPage(tk.Frame):
         
     def update_table(self, event=None):
         self.get_employee_list()
+        # self.get_rental_list()
+        # self.get_cars_list()
 
         self.table.delete(*self.table.get_children())
 
-        for account in self.employee_list:
-        
+        # for account, rent, car in zip(self.employee_list, self.rental_list, self.car_list):
+        #     if account.account_type == 'customer':
+        #         row = (account.id, account.name, account.email, account.contact, account.license_number,
+        #             rent.rental_status, rent.rented_model, car.plate_number, rent.rental_period)
+        #         self.table.insert('', tk.END, values=row)
+        for account in (self.employee_list):
             if account.account_type == 'customer':
                 row = (account.id, account.name, account.email, account.contact, account.license_number)
                 self.table.insert('', tk.END, values=row)
-
 
     
     def get_employee_list(self):
@@ -92,6 +97,22 @@ class MembersPage(tk.Frame):
         db_conn = database_handler.DBHandler()
         self.employee_list = db_conn.search_employee(key)
         db_conn.close()
+        
+    # def get_rental_list(self):
+    #     # key = self.search_field.get()
+    #     # db_conn = database_handler.DBHandler()
+    #     # self.rental_list = db_conn.search_rental(key)
+    #     # db_conn.close()
+        
+    #     db_conn = database_handler.DBHandler()
+    #     self.rental_list = db_conn.search_rental()
+    #     db_conn.close()
+            
+    # def get_cars_list(self):
+    #     key = self.search_field.get()
+    #     db_conn = database_handler.DBHandler()
+    #     self.car_list = db_conn.search_car(key)
+    #     db_conn.close()
     
     def delete_customer(self): 
         selected_items = self.table.selection()

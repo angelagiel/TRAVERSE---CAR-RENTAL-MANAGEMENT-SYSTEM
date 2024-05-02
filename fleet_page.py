@@ -29,7 +29,7 @@ class FleetPage(tk.Frame):
         
         #----- SEARCH FIELD
         
-        tk.Label(self, text="Search by Model: ", font=('Inter', 13), bg='white').grid(row=1, column=0, sticky='w', pady=(70,0), padx=(100,0))
+        tk.Label(self, text="Search by Brand: ", font=('Inter', 13), bg='white').grid(row=1, column=0, sticky='w', pady=(70,0), padx=(100,0))
         
         self.search_field = tk.Entry(self, width=140)
         self.search_field.grid(row=1, column=0, pady=(70, 0), padx=(120, 0))
@@ -56,15 +56,15 @@ class FleetPage(tk.Frame):
         # Set the width of each column
         self.table.column('id', width=30)
         # self.table.column('img', width=200)
-        self.table.column('brand', width=100)
+        self.table.column('brand', width=150)
         self.table.column('model', width=100)
         self.table.column('plate#', width=120)
         self.table.column('fuel', width=100)
         self.table.column('cost', width=120)
         self.table.column('seating capacity', width=90)
-        self.table.column('location', width=120)
-        self.table.column('availability', width=120)
-        self.table.tag_configure("center", anchor="center")
+        self.table.column('location', width=145)
+        self.table.column('availability', width=145)
+        # self.table.tag_configure("center", anchor="center")
         self.update_table()
         
         #------ MENU BUTTON
@@ -74,9 +74,9 @@ class FleetPage(tk.Frame):
         #------ DELETE CAR
         self.delete_button = tk.Button(self, text='Delete', width=15, fg='#4caf50', bg='white', border=0, font=('Inter', 15, 'underline'), command=self.delete_car)
         self.delete_button.grid(row=3, column=0, padx=(400, 100), pady=(20,0))
-        #-----  VIEW CAR
-        self.view_car = tk.Button(self, text='View Car', width=15, fg='#4caf50', bg='white', border=0, font=('Inter', 15, 'underline'), command=self.go_to_car_page)
-        self.view_car.grid(row=3, column=0, padx=(100, 100), pady=(20,0))
+        #-----  UPDATE CAR
+        self.view_car = tk.Button(self, text='Update', width=15, fg='#4caf50', bg='white', border=0, font=('Inter', 15, 'underline'), command=self.go_to_car_page)
+        self.view_car.grid(row=3, column=0, padx=(60, 100), pady=(20,0))
         
     def update_table(self, event=None):
         # pass
@@ -135,13 +135,12 @@ class FleetPage(tk.Frame):
     def go_to_car_page(self): 
         selected_items = self.table.selection()
         if len(selected_items) == 0:
-            messagebox.showwarning("Update Customer", "Select a customer to update.")
+            messagebox.showwarning("Update Car", "Select a car to update.")
             return
 
         for item in selected_items:
-            # id = self.table.item(item)['values'][0]
-            # self.parent.change_window('View_Car', customer_id=id)
-            self.parent.change_window('View_Car')
+            id = self.table.item(item)['values'][0]
+            self.parent.change_window('View_Car', car_id=id)
         
         
         
