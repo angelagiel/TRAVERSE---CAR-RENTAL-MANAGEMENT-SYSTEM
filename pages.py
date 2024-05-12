@@ -18,44 +18,45 @@ class LoginPage(tk.Frame):
         self.failed_login_attempts = {}
         self.locked_accounts = {}
         
-        #----- LOGO IMAGE 
-        self.logo = tk.PhotoImage(file="traverse logo.png")
-        tk.Label(self, image=self.logo, bg='white').grid(row=0, column=0, padx=(150,0), pady=(0, 150), rowspan=12)
+         #----- TRAVERSE LOGO
+        logo = Image.open("3traverse logo.png")
+        logo = logo.resize((250, 250))
+        self.logo = ImageTk.PhotoImage(logo)
         
-        #----- LOGIN HEADING
-        self.heading = tk.Label(self, text="Log in", fg='#4caf50', font=('Inter', 23), bg='white')
-        self.heading.grid(row=0, column=1, columnspan=10, pady=(170, 0), sticky='n', padx=(5,0))
+        tk.Label(self, image=self.logo, bg='white').grid(row=0, column=0, sticky='nsew', padx=(450,0), pady=(0,0))
         
+        #----- HEADING PAGE TITLE
+        self.heading = tk.Label(self, text='Log in', fg='#4caf50', font=('Inter', 40, ''), bg='white')
+        self.heading.grid(row=1, column=0, padx=(470,0), pady=(0,0))
         
         #----- ACCOUNT TYPE
         self.account_type = tk.StringVar()
         self.account_type.set("Admin")
         
-        self.admin_radio = tk.Radiobutton(self, text="Admin", variable=self.account_type, value="admin", width=7, bg='white', command=self.hide_customer_widgets)
-        self.admin_radio.grid(row=0, column=1, sticky='w', padx=(80, 60), pady=(0, 420))
+        self.admin_radio = tk.Radiobutton(self, text="Admin", variable=self.account_type, value="admin", width=6, bg='white', command=self.hide_customer_widgets)
+        self.admin_radio.grid(row=2, column=0, padx=(370,0))
         
-        self.customer_radio = tk.Radiobutton(self, text="Customer", variable=self.account_type, value="customer", width=7, bg='white', command=self.toggle_customer_widgets)
-        self.customer_radio.grid(row=0, column=1, padx=(120, 0), pady=(0, 420))
-        
+        self.customer_radio = tk.Radiobutton(self, text="Customer", variable=self.account_type, value="customer", width=6, bg='white', command=self.toggle_customer_widgets)
+        self.customer_radio.grid(row=2, column=0, padx=(520,0))
         #----- NAME FIELDS
-        self.name_field = tk.Entry(self, width=40, fg='black', border=0, font=('Inter', 11))
-        self.name_field.grid(row=0, column=1, sticky='w', pady=(30,350), padx=(40, 0))
+        self.name_field = tk.Entry(self, width=45, fg='black', border=0, font=('Inter', 11))
+        self.name_field.grid(row=3, column=0, padx=(500, 0), pady=(0,0))
         self.name_field.insert(0, 'Name')
-        tk.Frame(self, width=320, height=2, bg='black').grid(row=0, column=1, pady=(80, 350), padx=(15, 0) )
+        tk.Frame(self, width=350, height=2, bg='black').grid(row=3, column=0, pady=(40, 0), padx=(470,0))
         self.name_field.bind('<FocusIn>', self.on_enter)
         self.name_field.bind('<FocusOut>', self.on_leave)
 
         #----- PASSWORD FIELDS
-        self.code_field = tk.Entry(self, width=35, fg='black', border=0, font=('Inter', 11))
-        self.code_field.grid(row=0, column=1, pady=(150, 350))
+        self.code_field = tk.Entry(self, width=45, fg='black', border=0, font=('Inter', 11))
+        self.code_field.grid(row=4, column=0, padx=(500, 0), pady=(0,0))
         self.code_field.insert(0, "Password")
-        tk.Frame(self, width=320, height=2, bg='black').grid(row=0, column=1, pady=(200, 350), padx=(15, 0) )
+        tk.Frame(self, width=350, height=2, bg='black').grid(row=4, column=0, pady=(40, 0), padx=(470,0))
         self.code_field.bind('<FocusIn>', self.on_enter)
         self.code_field.bind('<FocusOut>', self.on_leave)
 
         #----- SIGNIN BUTTON
-        self.signin_button = tk.Button(self, width=39, pady=7, text='Sign in', bg='#4caf50', fg='white', border=0, command=self.login_clicked)
-        self.signin_button.grid(row=0, column=1, pady=(290, 350), padx=(20, 0))
+        self.signin_button = tk.Button(self, width=47, pady=7, text='Sign in', bg='#4caf50', fg='white', border=0, command=self.login_clicked)
+        self.signin_button.grid(row=5, column=0, pady=(20,0), padx=(480,0))
         
         #------- For Customer Widgets
         self.label = tk.Label(self, text="New to our services?", fg='black', bg='white', font=('Inter', 9))
@@ -65,28 +66,21 @@ class LoginPage(tk.Frame):
         
         #----- CAPTCHA SECTION
         
-        self.captcha = tk.Label(self, width=27, height=4, fg='#4caf50', font=('Roboto', 15, 'italic'), border=1)
+        self.captcha = tk.Label(self, width=25, height=4, fg='#4caf50', font=('Roboto', 15, 'italic'), border=1)
         self.label_captcha = tk.Label(self, text='To continue, type the characters you see in the picture.', bg='white')
         self.entry_captcha = tk.Entry(self, width=53, fg='black', border=1)
         self.button_captcha = tk.Button(self, text="Submit", width=12, cursor='hand2', bg='#4caf50', command=self.login)
         
-        #----- MENU ADMIN
-        self.menu_button = tk.Button(self, text='MENU', width=10, height=2, command=self.go_to_admin_dashboard)
-        self.menu_button.grid(row=0, column=0, sticky='s')
-        
         self.hide_customer_widgets()
         self.hide_captcha_section()
 
-    def go_to_admin_dashboard(self): 
-        self.parent.change_window('Admin_Dashboard')
-        
     def hide_customer_widgets(self): 
         self.label.grid_forget()
         self.signup_btn.grid_forget()
 
     def show_customer_widgets(self): 
-        self.label.grid(row=0, column=1, pady=(400, 350), padx=(110, 0), sticky='w')
-        self.signup_btn.grid(row=0, column=1, pady=(400, 350), padx=(140, 0))
+        self.label.grid(row=6,column=0, padx=(400, 0), pady=(10,0))
+        self.signup_btn.grid(row=6, column=0, padx=(580,0), pady=(10, 0))
         
     def toggle_customer_widgets(self): 
         self.hide_captcha_section()
@@ -98,17 +92,17 @@ class LoginPage(tk.Frame):
             self.on_return()
     
     def login_clicked(self): 
+        self.hide_customer_widgets()
         if self.name_field.get() != '' and self.code_field.get() != '': 
             self.toggle_captcha_section()
         elif self.name_field.get() == '' or self.code_field.get() == '': 
             messagebox.showerror("Error", "Name and Password are Required")
     
     def show_captcha_section(self): 
-        # self.hide_customer_widgets()
-        self.captcha.grid(row=0, column=1, pady=(470,350), padx=(10, 0))
-        self.label_captcha.grid(row=0, column=1, pady=(580, 350))
-        self.entry_captcha.grid(row=0, column=1, pady=(300, 10))
-        self.button_captcha.grid(row=0, column=1, pady=(410, 10))
+        self.captcha.grid(row=7, column=0, padx=(470,0), pady=(10,0))
+        self.label_captcha.grid(row=8, column=0, padx=(470,0), pady=(10,0))
+        self.entry_captcha.grid(row=9, column=0, padx=(470,0), pady=(10,0))
+        self.button_captcha.grid(row=10, column=0, padx=(470,0), pady=(10,0))
 
     def hide_captcha_section(self): 
         self.captcha.grid_forget()
@@ -170,9 +164,11 @@ class LoginPage(tk.Frame):
                 if self.check_captcha():  # Corrected the function call
                     if account_type == 'admin':
                         messagebox.showinfo("Welcome!", "Login Successful. Hello, admin!")
+                        self.go_to_admin_dashboard()
                     elif account_type == 'customer':
                         messagebox.showinfo("Welcome!", "Login Successful. Hello, customer!")
                         self.reset_failed_attempts(name)
+                        self.go_to_customer_window()
                         
                     self.hide_captcha_section()
                     self.hide_customer_widgets()
@@ -198,7 +194,7 @@ class LoginPage(tk.Frame):
 
     def lock_account(self, name):
         self.failed_login_attempts[name] = -1
-        self.locked_accounts[name] = datetime.now() + timedelta(hours=24)
+        self.locked_accounts[name] = datetime.now() + timedelta(minutes=1)
         messagebox.showerror('Account Locked', 'Your account is locked. Please try again later.')  
         self.on_return()
         self.hide_captcha_section()
@@ -227,15 +223,43 @@ class LoginPage(tk.Frame):
     
     def go_to_signup_page(self): 
         self.parent.change_window('Signup_Page')
-              
-class SignupPage(tk.Frame): 
-    def __init__(self, master): 
-        tk.Frame.__init__(self, master)
-        self.parent = master
-        
-         #----- LOGO IMAGE 
-        self.logo = tk.PhotoImage(file="traverse logo.png")
-        tk.Label(self, image=self.logo).grid(row=0, column=0)
+    
+    def go_to_admin_dashboard(self):
+        self.parent.change_window('Admin_Dashboard')
+    
+    def go_to_customer_window(self): 
+        self.parent.change_window('Customer_Window')
+    
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
              
 class AdminDashboard(tk.Frame): 
     def __init__(self, master): 
