@@ -32,19 +32,19 @@ class BillingPage(tk.Frame):
         self.customer_frame.grid(row=1, column=0, sticky='nw', pady=(0,0), padx=(100,0))
         
         tk.Label(self.customer_frame, text="Customer ID:", bg='white').grid(row=0, column=0, sticky='w')
-        self.customer_id_entry = Entry(self.customer_frame)
+        self.customer_id_entry = Entry(self.customer_frame, width=40)
         self.customer_id_entry.grid(row=0, column=1)
         
         tk.Label(self.customer_frame, text="Customer Name:", bg='white').grid(row=1, column=0, sticky='w')
-        self.customer_name_entry = Entry(self.customer_frame)
+        self.customer_name_entry = Entry(self.customer_frame, width=40)
         self.customer_name_entry.grid(row=1, column=1)
         
         tk.Label(self.customer_frame, text="Driver's License Number:", bg='white').grid(row=2, column=0, sticky='w')
-        self.license_number_entry = Entry(self.customer_frame)
+        self.license_number_entry = Entry(self.customer_frame, width=40)
         self.license_number_entry.grid(row=2, column=1)
         
         tk.Label(self.customer_frame, text="Contact Number:", bg='white').grid(row=3, column=0, sticky='w')
-        self.contact_number_entry = Entry(self.customer_frame)
+        self.contact_number_entry = Entry(self.customer_frame, width=40)
         self.contact_number_entry.grid(row=3, column=1)
         
         #----- CAR FRAME FIELDS
@@ -54,44 +54,46 @@ class BillingPage(tk.Frame):
         self.car_frame.config(bg='white')
         
         car = Image.open("toyota.png")
-        car = car.resize((150, 70))
+        car = car.resize((350, 120))
         self.car = ImageTk.PhotoImage(car)
         
         tk.Label(self.car_frame, image=self.car, bg='white').grid(row=3, column=0, padx=(100, 0))
         
-        tk.Label(self.car_frame, text='Selected Car Information',fg='#4caf50', font=('Roboto', 15, 'bold')).grid(row=0, column=0)
+        tk.Label(self.car_frame, text='Selected Car Information',fg='#4caf50', font=('Roboto', 15, 'bold')).grid(row=0, column=0, sticky='w',padx=(100,0))
         
         tk.Label(self.car_frame, text="Car ID:", bg='white').grid(row=1, column=2, sticky='w')
-        self.car_id_entry = Entry(self.car_frame)
+        self.car_id_entry = Entry(self.car_frame, width=25)
         self.car_id_entry.grid(row=1, column=3)
         
         tk.Label(self.car_frame, text="Brand:", bg='white').grid(row=2, column=2, sticky='w')
-        self.car_brand_entry = Entry(self.car_frame)
+        self.car_brand_entry = Entry(self.car_frame, width=25)
         self.car_brand_entry.grid(row=2, column=3)
         
         tk.Label(self.car_frame, text="Model:", bg='white').grid(row=3, column=2, sticky='w')
-        self.car_model_entry = Entry(self.car_frame)
+        self.car_model_entry = Entry(self.car_frame, width=25)
         self.car_model_entry.grid(row=3, column=3)
         
         tk.Label(self.car_frame, text="Plate Number:", bg='white').grid(row=4, column=2, sticky='w')
-        self.plate_number_entry = Entry(self.car_frame)
+        self.plate_number_entry = Entry(self.car_frame, width=25)
         self.plate_number_entry.grid(row=4, column=3)
         
         tk.Label(self.car_frame, text="Fuel Type:", bg='white').grid(row=5, column=2, sticky='w')
-        self.fuel_type_entry = Entry(self.car_frame)
+        self.fuel_type_entry = Entry(self.car_frame, width=25)
         self.fuel_type_entry.grid(row=5, column=3)
         
         tk.Label(self.car_frame, text="Seating Capacity:", bg='white').grid(row=6, column=2, sticky='w')
-        self.seating_capacity_entry = Entry(self.car_frame)
+        self.seating_capacity_entry = Entry(self.car_frame, width=25)
         self.seating_capacity_entry.grid(row=6, column=3)
         
         tk.Label(self.car_frame, text="Pickup Location:", bg='white').grid(row=7, column=2, sticky='w')
-        self.location_entry = Entry(self.car_frame)
+        self.location_entry = Entry(self.car_frame, width=25)
         self.location_entry.grid(row=7, column=3)
         
         tk.Label(self.car_frame, text="Cost Per Day:", bg='white').grid(row=8, column=2, sticky='w')
-        self.cost_per_day_entry = Entry(self.car_frame)
+        self.cost_per_day_entry = Entry(self.car_frame, width=25)
         self.cost_per_day_entry.grid(row=8, column=3)
+        
+        self.confirm_rent = Button(self.car_frame, text='Confirm Rent', pady=5, padx=10, bg='#4caf50', fg='white', width=25).grid(row=9, column=3, pady=(20,0), padx=(0, 60))
         
         #----- BILLING FRAME FIELDS
         
