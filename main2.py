@@ -23,20 +23,18 @@ class MainWindow(tk.Tk):
         self.frames['Update_Form'] = updateform_page.UpdateForm(self)
         self.frames['Fleet_Page'] = fleet_page.FleetPage(self)
         self.frames['Customer_Window'] = customer_window.CustomerWindow(self)
-        # self.frames['Rent_Car'] = rent_car.RentCar(self)
         self.frames['View_Car'] = car_page.CarPage(self)
         self.frames['Billing_Page'] = billing_page.BillingPage(self)
         
-        # self.change_window('Update_Form')
-        # self.change_window('Members_Page')
+        self.change_window('Update_Form')
+        self.change_window('Members_Page')
         self.change_window('View_Car')
-        self.change_window('Customer_Window')
         self.change_window('Fleet_Page')
-        # self.change_window('Rent_Car')
         self.change_window('Admin_Dashboard')
-        self.change_window('Billing_Page')
-        self.change_window('Login_Page')
         self.change_window('Signup_Page')
+        self.change_window('Billing_Page')
+        self.change_window('Customer_Window')
+        self.change_window('Login_Page')
         
 
     def change_window(self, name, **kwargs): 

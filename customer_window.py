@@ -16,6 +16,7 @@ class CustomerWindow(tk.Frame):
         self.parent = master
         self.configure(bg='white')
         
+        
         #----- TRAVERSE LOGO
         logo = Image.open("250traverse logo.png")
         logo = logo.resize((150, 150))
@@ -30,7 +31,7 @@ class CustomerWindow(tk.Frame):
         #------ CUSTOMER FIELDS 
         self.customer_id = tk.Label(self, text='Customer ID:', fg='#4caf50', font=('Inter', 18, 'bold'), bg='white')
         self.customer_id.grid(row=2, column=0, sticky='w', padx=(100, 100), pady=(0,0))
-        self.id_num = tk.Label(self, text='6', fg='black', font=('Inter', 12), bg='white' )
+        self.id_num = tk.Label(self, text=self.customer_id, fg='black', font=('Inter', 12), bg='white' )
         self.id_num.grid(row=2, column=0, sticky='w', padx=(300,0))
         
         self.customer_name = tk.Label(self, text='Customer Name:', fg='#4caf50', font=('Inter', 18, 'bold'), bg='white')
@@ -152,6 +153,23 @@ class CustomerWindow(tk.Frame):
         for item in selected_items:
             id = self.table.item(item)['values'][0]
             self.parent.change_window('View_Car', car_id=id)
+
+    def on_return(self, **kwargs):
+        # self.id = kwargs['customer_id']
+        
+        print("Received kwargs:", kwargs)
+        self.id = kwargs.get('customer_id', None)
+        if self.id is None:
+            print("Error: 'customer_id' not found in kwargs")
+            return
+        
+        self.id = kwargs['customer_id']
+        self.id_num.config(text=self.id)
+
+        db_conn = database_handler.DBHandler()
+        customer_data = db_conn.read_one_customer(self.id)
+        db_conn.close
+        
 
     #----
     def go_to_login_page(self): 

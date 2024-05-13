@@ -167,8 +167,9 @@ class LoginPage(tk.Frame):
                         self.go_to_admin_dashboard()
                     elif account_type == 'customer':
                         messagebox.showinfo("Welcome!", "Login Successful. Hello, customer!")
+                        customer_id = account.id  # Fetch the ID of the logged-in customer
                         self.reset_failed_attempts(name)
-                        self.go_to_customer_window()
+                        self.go_to_customer_window(customer_id)  # Pass customer ID to CustomerWindow
                         
                     self.hide_captcha_section()
                     self.hide_customer_widgets()
@@ -227,9 +228,8 @@ class LoginPage(tk.Frame):
     def go_to_admin_dashboard(self):
         self.parent.change_window('Admin_Dashboard')
     
-    def go_to_customer_window(self): 
-        self.parent.change_window('Customer_Window')
-    
+    def go_to_customer_window(self, customer_id): 
+        self.parent.change_window('Customer_Window', customer_id=customer_id)
     
 
 
