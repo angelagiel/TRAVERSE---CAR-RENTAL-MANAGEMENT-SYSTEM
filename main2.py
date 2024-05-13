@@ -32,8 +32,8 @@ class MainWindow(tk.Tk):
         self.change_window('Fleet_Page')
         self.change_window('Admin_Dashboard')
         self.change_window('Signup_Page')
-        self.change_window('Billing_Page')
         self.change_window('Customer_Window')
+        self.change_window('Billing_Page')
         self.change_window('Login_Page')
         
 

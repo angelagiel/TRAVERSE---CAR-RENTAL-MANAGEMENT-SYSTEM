@@ -85,10 +85,9 @@ class CustomerWindow(tk.Frame):
         self.menu_button.grid(row=5, column=0, padx=(300,0), sticky='w',pady=(20,0))
         
         #------ View Profile
-        self.delete_button = tk.Button(self, text='Delete', width=15, fg='#4caf50', bg='white', border=0, font=('Inter', 15, 'underline'))
-        self.delete_button.grid(row=5, column=0, padx=(400, 100), pady=(20,0))
+       
         #-----  Billing Page
-        self.rent_car = tk.Button(self, text='RENT CAR', width=15, fg='#4caf50', bg='white', border=0, font=('Inter', 15, 'underline'), command=self.go_to_billing_page)
+        self.rent_car = tk.Button(self, text='RENT CAR', width=15, fg='#4caf50', bg='white', border=0, font=('Inter', 15, 'underline'), command=self.rent_this_car)
         self.rent_car.grid(row=5, column=0, padx=(60, 100), pady=(20,0))
         
     def update_table(self, event=None):
@@ -138,10 +137,6 @@ class CustomerWindow(tk.Frame):
             db_conn.close()
             
             self.update_table()
-    
-    def on_return(self): 
-        self.update_table()
-        
 
         
     def go_to_car_page(self): 
@@ -155,6 +150,7 @@ class CustomerWindow(tk.Frame):
             self.parent.change_window('View_Car', car_id=id)
 
     def on_return(self, **kwargs):
+        self.update_table()
         # self.id = kwargs['customer_id']
         
         print("Received kwargs:", kwargs)
@@ -170,11 +166,27 @@ class CustomerWindow(tk.Frame):
         customer_data = db_conn.read_one_customer(self.id)
         db_conn.close
         
+        # self.clear_fields()
+
+        self.name_customer.config(text=customer_data.name)
+    
+    def rent_this_car(self): 
+        selected_items = self.table.selection()
+        if len(selected_items) == 0:
+            messagebox.showwarning("Rent a Car", "Select a car to rent")
+            return
+
+        for item in selected_items:
+            car_id = self.table.item(item)['values'][0]
+            
+        customer_id = self.id_num.cget("text")
+        self.go_to_billing_page(customer_id, car_id)
+    
 
     #----
     def go_to_login_page(self): 
         self.parent.change_window('Login_Page')
     
-    def go_to_billing_page(self): 
-        self.parent.change_window('Billing_Page')
+    def go_to_billing_page(self, customer_id, car_id): 
+        self.parent.change_window('Billing_Page', customer_id=customer_id, car_id=car_id)
         

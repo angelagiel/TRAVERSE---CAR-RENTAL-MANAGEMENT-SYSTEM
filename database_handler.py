@@ -44,7 +44,7 @@ class DBHandler:
         self.cursor.execute(query, values)
         self.conn.commit()
         
-    def read_one_customer(self, id : int): 
+    def read_one_customer(self, id): 
         query = f"SELECT * FROM {self.accounts_table} WHERE id = ?" 
         values = (id, )
         self.cursor.execute(query, values)
@@ -122,7 +122,7 @@ class DBHandler:
         self.cursor.execute(query, values)
         self.conn.commit()
         
-    def read_one_car(self, id : int): 
+    def read_one_car(self, id): 
         query = f"SELECT * FROM {self.carfleet_table} WHERE id = ?" 
         values = (id, )
         self.cursor.execute(query, values)

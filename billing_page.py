@@ -10,14 +10,13 @@ import re
 from datetime import datetime, timedelta
 from PIL import Image, ImageTk
 
-
 class BillingPage(tk.Frame): 
     def __init__(self, master): 
         tk.Frame.__init__(self, master)
         self.parent = master
         self.configure(bg='white')
         
-         #----- TRAVERSE LOGO
+        #----- TRAVERSE LOGO
         logo = Image.open("3traverse logo.png")
         logo = logo.resize((200, 200))
         self.logo = ImageTk.PhotoImage(logo)
@@ -33,16 +32,20 @@ class BillingPage(tk.Frame):
         self.customer_frame.grid(row=1, column=0, sticky='nw', pady=(0,0), padx=(100,0))
         
         tk.Label(self.customer_frame, text="Customer ID:", bg='white').grid(row=0, column=0, sticky='w')
-        tk.Entry(self.customer_frame).grid(row=0, column=1)
+        self.customer_id_entry = Entry(self.customer_frame)
+        self.customer_id_entry.grid(row=0, column=1)
         
         tk.Label(self.customer_frame, text="Customer Name:", bg='white').grid(row=1, column=0, sticky='w')
-        tk.Entry(self.customer_frame).grid(row=1, column=1)
+        self.customer_name_entry = Entry(self.customer_frame)
+        self.customer_name_entry.grid(row=1, column=1)
         
         tk.Label(self.customer_frame, text="Driver's License Number:", bg='white').grid(row=2, column=0, sticky='w')
-        tk.Entry(self.customer_frame).grid(row=2, column=1)
+        self.license_number_entry = Entry(self.customer_frame)
+        self.license_number_entry.grid(row=2, column=1)
         
         tk.Label(self.customer_frame, text="Contact Number:", bg='white').grid(row=3, column=0, sticky='w')
-        tk.Entry(self.customer_frame).grid(row=3, column=1)
+        self.contact_number_entry = Entry(self.customer_frame)
+        self.contact_number_entry.grid(row=3, column=1)
         
         #----- CAR FRAME FIELDS
         
@@ -56,34 +59,39 @@ class BillingPage(tk.Frame):
         
         tk.Label(self.car_frame, image=self.car, bg='white').grid(row=3, column=0, padx=(100, 0))
         
-        
-        
         tk.Label(self.car_frame, text='Selected Car Information',fg='#4caf50', font=('Roboto', 15, 'bold')).grid(row=0, column=0)
         
         tk.Label(self.car_frame, text="Car ID:", bg='white').grid(row=1, column=2, sticky='w')
-        tk.Entry(self.car_frame).grid(row=1, column=3)
+        self.car_id_entry = Entry(self.car_frame)
+        self.car_id_entry.grid(row=1, column=3)
         
         tk.Label(self.car_frame, text="Brand:", bg='white').grid(row=2, column=2, sticky='w')
-        tk.Entry(self.car_frame).grid(row=2, column=3)
+        self.car_brand_entry = Entry(self.car_frame)
+        self.car_brand_entry.grid(row=2, column=3)
         
         tk.Label(self.car_frame, text="Model:", bg='white').grid(row=3, column=2, sticky='w')
-        tk.Entry(self.car_frame).grid(row=3, column=3)
+        self.car_model_entry = Entry(self.car_frame)
+        self.car_model_entry.grid(row=3, column=3)
         
         tk.Label(self.car_frame, text="Plate Number:", bg='white').grid(row=4, column=2, sticky='w')
-        tk.Entry(self.car_frame).grid(row=4, column=3)
+        self.plate_number_entry = Entry(self.car_frame)
+        self.plate_number_entry.grid(row=4, column=3)
         
         tk.Label(self.car_frame, text="Fuel Type:", bg='white').grid(row=5, column=2, sticky='w')
-        tk.Entry(self.car_frame).grid(row=5, column=3)
+        self.fuel_type_entry = Entry(self.car_frame)
+        self.fuel_type_entry.grid(row=5, column=3)
         
         tk.Label(self.car_frame, text="Seating Capacity:", bg='white').grid(row=6, column=2, sticky='w')
-        tk.Entry(self.car_frame).grid(row=6, column=3)
+        self.seating_capacity_entry = Entry(self.car_frame)
+        self.seating_capacity_entry.grid(row=6, column=3)
         
         tk.Label(self.car_frame, text="Pickup Location:", bg='white').grid(row=7, column=2, sticky='w')
-        tk.Entry(self.car_frame).grid(row=7, column=3)
+        self.location_entry = Entry(self.car_frame)
+        self.location_entry.grid(row=7, column=3)
         
         tk.Label(self.car_frame, text="Cost Per Day:", bg='white').grid(row=8, column=2, sticky='w')
-        tk.Entry(self.car_frame).grid(row=8, column=3)
-        
+        self.cost_per_day_entry = Entry(self.car_frame)
+        self.cost_per_day_entry.grid(row=8, column=3)
         
         #----- BILLING FRAME FIELDS
         
@@ -94,37 +102,90 @@ class BillingPage(tk.Frame):
         tk.Label(self.billing_frame, text="Billing Receipt", fg='black', font=('Roboto', 15, 'bold')).grid(row=0, column=0, padx=(10,0))
         
         tk.Label(self.billing_frame, text="Customer Name:").grid(row=1, column=0, sticky='w', padx=10, pady=10)
-        tk.Entry(self.billing_frame).grid(row=1, column=1, padx=10, pady=10)
+        self.customer_name_entry_billing = Entry(self.billing_frame)
+        self.customer_name_entry_billing.grid(row=1, column=1, padx=10, pady=10)
         
         tk.Label(self.billing_frame, text="Rented Model:").grid(row=2, column=0, sticky='w', padx=10, pady=10)
-        tk.Entry(self.billing_frame).grid(row=2, column=1, padx=10, pady=10)
+        self.rented_model_entry = Entry(self.billing_frame)
+        self.rented_model_entry.grid(row=2, column=1, padx=10, pady=10)
         
         tk.Label(self.billing_frame, text="Rented Date:").grid(row=3, column=0, sticky='w', padx=10, pady=10)
-        tk.Entry(self.billing_frame).grid(row=3, column=1, padx=10, pady=10)
+        self.rented_date_entry = Entry(self.billing_frame)
+        self.rented_date_entry.grid(row=3, column=1, padx=10, pady=10)
         
         tk.Label(self.billing_frame, text="Rented Time:").grid(row=4, column=0, sticky='w', padx=10, pady=10)
-        tk.Entry(self.billing_frame).grid(row=4, column=1, padx=10, pady=10)
+        self.rented_time_entry = Entry(self.billing_frame)
+        self.rented_time_entry.grid(row=4, column=1, padx=10, pady=10)
         
         tk.Label(self.billing_frame, text="Rental Period:").grid(row=5, column=0, sticky='w', padx=10, pady=10)
-        tk.Entry(self.billing_frame).grid(row=5, column=1, padx=10, pady=10)
+        self.rental_period_entry = Entry(self.billing_frame)
+        self.rental_period_entry.grid(row=5, column=1, padx=10, pady=10)
         
         tk.Label(self.billing_frame, text="Return Date:").grid(row=6, column=0, sticky='w', padx=10, pady=10)
-        tk.Entry(self.billing_frame).grid(row=6, column=1, padx=10, pady=10)
+        self.return_date_entry = Entry(self.billing_frame)
+        self.return_date_entry.grid(row=6, column=1, padx=10, pady=10)
         
         tk.Label(self.billing_frame, text="Pickup Location:").grid(row=7, column=0, sticky='w', padx=10, pady=10)
-        tk.Entry(self.billing_frame).grid(row=7, column=1, padx=10, pady=10)
+        self.pickup_location_entry = Entry(self.billing_frame)
+        self.pickup_location_entry.grid(row=7, column=1, padx=10, pady=10)
         
         tk.Label(self.billing_frame, text="Cost Per Day:").grid(row=8, column=0, sticky='w', padx=10, pady=10)
-        tk.Entry(self.billing_frame).grid(row=8, column=1, padx=10, pady=10)
+        self.cost_per_day_billing_entry = Entry(self.billing_frame)
+        self.cost_per_day_billing_entry.grid(row=8, column=1, padx=10, pady=10)
         
         tk.Label(self.billing_frame, text="================================:").grid(row=9, column=0, columnspan=2, sticky='w', padx=10, pady=10)
         
         tk.Label(self.billing_frame, text="Total Rent:").grid(row=10, column=0, sticky='w', padx=10, pady=10)
-        tk.Entry(self.billing_frame).grid(row=10, column=1, padx=10, pady=10)
+        self.total_rent_entry = Entry(self.billing_frame)
+        self.total_rent_entry.grid(row=10, column=1, padx=10, pady=10)
         
 
+    def on_return(self, **kwargs):
+        print("Received kwargs:", kwargs)
+        self.customer_id_entry.delete(0, tk.END)
+        self.car_id_entry.delete(0, tk.END)
         
+        customer_id = kwargs.get('customer_id')
+        car_id = kwargs.get('car_id')
         
+        if not car_id:
+            print("Error: 'car_id' not found in kwargs")
+            return
         
-    def on_return(self): 
-        pass
+        db_conn = database_handler.DBHandler()
+        customer_data = db_conn.read_one_customer(customer_id)
+        car_data = db_conn.read_one_car(car_id)
+        db_conn.close()
+        
+        self.clear_fields()
+        
+        if customer_data:
+            self.customer_id_entry.insert(0, customer_data.id)
+            self.customer_name_entry.insert(0, customer_data.name)
+            self.license_number_entry.insert(0, customer_data.license_number)
+            self.contact_number_entry.insert(0, customer_data.contact)
+        
+        if car_data:
+            self.car_id_entry.insert(0, car_data.id)
+            self.car_brand_entry.insert(0, car_data.brand)
+            self.car_model_entry.insert(0, car_data.model)
+            self.plate_number_entry.insert(0, car_data.plate_number)
+            self.fuel_type_entry.insert(0, car_data.fuel_type)
+            self.seating_capacity_entry.insert(0, car_data.seating_capacity)
+            self.location_entry.insert(0, car_data.location)
+            self.cost_per_day_entry.insert(0, car_data.cost_per_day)
+
+    def clear_fields(self): 
+        self.customer_id_entry.delete(0, tk.END)
+        self.customer_name_entry.delete(0, tk.END)
+        self.license_number_entry.delete(0, tk.END)
+        self.contact_number_entry.delete(0, tk.END)
+
+        self.car_id_entry.delete(0, tk.END)
+        self.car_brand_entry.delete(0, tk.END)
+        self.car_model_entry.delete(0, tk.END)
+        self.plate_number_entry.delete(0, tk.END)
+        self.fuel_type_entry.delete(0, tk.END)
+        self.seating_capacity_entry.delete(0, tk.END)
+        self.location_entry.delete(0, tk.END)
+        self.cost_per_day_entry.delete(0, tk.END)
