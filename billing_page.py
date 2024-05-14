@@ -93,7 +93,14 @@ class BillingPage(tk.Frame):
         self.cost_per_day_entry = Entry(self.car_frame, width=25)
         self.cost_per_day_entry.grid(row=8, column=3)
         
-        self.confirm_rent = Button(self.car_frame, text='Confirm Rent', pady=5, padx=10, bg='#4caf50', fg='white', width=25).grid(row=9, column=3, pady=(20,0), padx=(0, 60))
+        tk.Label(self.car_frame, text="Rental Period (days):", bg='white').grid(row=9, column=2, sticky='w')
+        self.rental_period_entry = Entry(self.car_frame, width=25)
+        self.rental_period_entry.grid(row=9, column=3)
+        
+        self.confirm_rent = Button(self.car_frame, text='Confirm Rent', pady=5, padx=10, bg='#4caf50', fg='white', width=25, command=self.confirm_rent_clicked)
+        self.confirm_rent.grid(row=10, column=3, pady=(20,0), padx=(0, 60))
+        
+
         
         #----- BILLING FRAME FIELDS
         
@@ -191,3 +198,29 @@ class BillingPage(tk.Frame):
         self.seating_capacity_entry.delete(0, tk.END)
         self.location_entry.delete(0, tk.END)
         self.cost_per_day_entry.delete(0, tk.END)
+
+
+        
+    def confirm_rent_clicked(self): 
+        self.rental_status = 'UNAVAILABLE'
+
+        new_rental = models.Rental()
+        new_rental.customer_id = self.customer_id_entry.get()
+        new_rental.customer_name = self.customer_name_entry.get()  
+        new_rental.car_id = self.car_id_entry.get()
+        new_rental.rental_status = self.rental_status
+        new_rental.rented_model = self.car_model_entry.get()
+        new_rental.rent_plateNo = self.plate_number_entry.get()
+        new_rental.rental_period = self.rental_period_entry.get()
+        new_rental.rent_date = datetime.now().date()
+        new_rental.rent_time = datetime.now().time()
+        new_rental.return_date = datetime.now().date()
+        new_rental.pickup_location = self.location_entry.get()
+        new_rental.cost_per_day = self.cost_per_day_entry.get()
+        new_rental.total_rent = float(self.cost_per_day_entry.get() + self.rental_period_entry.get())
+
+        db_conn = database_handler.DBHandler()
+        db_conn.add_rental(new_rental)
+        db_conn.close()
+
+                

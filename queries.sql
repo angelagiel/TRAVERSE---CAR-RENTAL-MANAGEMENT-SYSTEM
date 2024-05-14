@@ -23,15 +23,25 @@ CREATE TABLE `cars` (
   PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `rental` (
-  `id` INTEGER NOT NULL,
-  `rental_status` TEXT NOT NULL,
-  `rented_model` TEXT NOT NULL,
-  `rental_period` INTEGER NOT NULL,
-  `rent_date` DATE NOT NULL,
-  `rent_time` TIME NOT NULL,
-  PRIMARY KEY (`id`)
+
+CREATE TABLE rental (
+    id INTEGER PRIMARY KEY,
+    customer_id INTEGER,
+    customer_name TEXT,
+    car_id INTEGER,
+    rental_status TEXT,
+    rented_model TEXT,
+    rent_plateNo TEXT,
+    rental_period INTEGER,
+    rent_datetime TEXT,
+    return_datetime TEXT,
+    pickup_location TEXT,
+    cost_per_day REAL,
+    total_rent REAL,
+    FOREIGN KEY (customer_id) REFERENCES accounts(id),
+    FOREIGN KEY (car_id) REFERENCES cars(id)
 );
+
 
 
 
@@ -95,15 +105,11 @@ VALUES
 
 
 -- //////// for rental values 
-INSERT INTO rental (rental_status, rented_model, rental_period, rent_date, rent_time)
-VALUES ('rented', 'Toyota Camry', 7, '2024-04-29', '10:00:00');
-
-INSERT INTO rental (rental_status, rented_model, rental_period, rent_date, rent_time)
-VALUES ('returned', 'Honda Civic', 5, '2024-04-25', '12:30:00');
-
-INSERT INTO rental (rental_status, rented_model, rental_period, rent_date, rent_time)
-VALUES ('rented', 'Ford Focus', 3, '2024-04-20', '09:45:00');
-
+INSERT INTO rental (customer_id, customer_name, car_id, rental_status, rented_model, rent_plateNo, rental_period, rent_date, rent_time, return_date, pickup_location, cost_per_day, total_rent) 
+VALUES 
+(1, 'Alice Smith', 101, 'rented', 'Toyota Camry', 'ABC123', 7, '2024-05-14', '10:00 AM', '2024-05-21', '123 Main St', 50.00, 350.00),
+(2, 'Bob Johnson', 102, 'rented', 'Honda Civic', 'XYZ789', 5, '2024-05-15', '11:30 AM', '2024-05-20', '456 Elm St', 45.00, 225.00),
+(3, 'Charlie Brown', 103, 'rented', 'Ford Mustang', 'DEF456', 3, '2024-05-16', '09:00 AM', '2024-05-19', '789 Oak St', 60.00, 180.00);
 
 
 
@@ -116,6 +122,7 @@ DELETE FROM accounts
 WHERE account_type = 'admin';
 
 DROP TABLE cars;
+DROP TABLE rental;
 
 
 
@@ -125,3 +132,7 @@ SecurePass1!
 MyP@ssw0rd
 Ch@ngeMe1
 P@55w0rd!
+
+ALTER TABLE rental
+ADD COLUMN rent_date TEXT,
+ADD COLUMN return_date TEXT;

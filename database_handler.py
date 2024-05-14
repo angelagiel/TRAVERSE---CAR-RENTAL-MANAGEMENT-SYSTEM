@@ -162,30 +162,61 @@ class DBHandler:
         for row in self.cursor:
             new_rental = models.Rental()
             new_rental.id = row[0]
-            new_rental.rental_status = row[1]
-            new_rental.rented_model = row[2]
-            new_rental.rental_period = row[3]
-            new_rental.rent_date = row[4]
-            new_rental.rent_time = row[5]
+            new_rental.customer_id = row[1]
+            new_rental.customer_name = row[2]
+            new_rental.car_id = row[3]
+            new_rental.rental_status = row[4]
+            new_rental.rented_model = row[5]
+            new_rental.rent_plateNo = row[6]
+            new_rental.rental_period = row[7]
+            new_rental.rent_date = row[8]
+            new_rental.rent_time = row[9]
+            new_rental.return_date = row[10]
+            new_rental.pickup_location = row[11]
+            new_rental.cost_per_day = row[12]
+            new_rental.total_rent = row[13]
 
             rentals.append(new_rental)
 
         return rentals
 
-    def read_one_rental(self, id : int): 
-        query = f"SELECT * FROM {self.carfleet_table} WHERE id = ?" 
-        values = (id, )
+
+    def read_one_rental(self, id: int): 
+        query = f"SELECT * FROM {self.rentals_table} WHERE id = ?" 
+        values = (id,)
         self.cursor.execute(query, values)
         
         for row in self.cursor: 
             new_rental = models.Rental()
-            new_rental.id= row[0]
-            new_rental.rental_status = row[1]
-            new_rental.rented_model = row[2]
-            new_rental.rental_period = row[3]
-            new_rental.rent_date = row[4]
-            new_rental.rent_time = row[4]
+            new_rental.id = row[0]
+            new_rental.customer_id = row[1]
+            new_rental.customer_name = row[2]
+            new_rental.car_id = row[3]
+            new_rental.rental_status = row[4]
+            new_rental.rented_model = row[5]
+            new_rental.rent_plateNo = row[6]
+            new_rental.rental_period = row[7]
+            new_rental.rent_date = row[8]
+            new_rental.rent_time = row[9]
+            new_rental.return_date = row[10]
+            new_rental.pickup_location = row[11]
+            new_rental.cost_per_day = row[12]
+            new_rental.total_rent = row[13]
+
             return new_rental
+        
+    # def add_rental(self, rental: models.Rental):
+    #     query = "INSERT INTO rental (customer_id, customer_name, car_id, rental_status, rented_model, rent_plateNo, rental_period, rent_date, rent_time, return_date, pickup_location, cost_per_day, total_rent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    #     values = (rental.customer_id, rental.customer_name, rental.car_id, rental.rental_status, rental.rented_model, rental.rent_plateNo, rental.rental_period, rental.rent_date, rental.rent_time, rental.return_date, rental.pickup_location, rental.cost_per_day, rental.total_rent)
+    #     self.cursor.execute(query, values)
+    #     self.conn.commit()
+    
+    def add_rental(self, rental: models.Rental):
+        query = "INSERT INTO rental (customer_id, customer_name, car_id, rental_status, rented_model, rent_plateNo, rental_period, rent_datetime, return_datetime, pickup_location, cost_per_day, total_rent) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+        values = (rental.customer_id, rental.customer_name, rental.car_id, rental.rental_status, rental.rented_model, rental.rent_plateNo, rental.rental_period, rental.rent_date.strftime("%Y-%m-%d %H:%M:%S"), rental.return_date.strftime("%Y-%m-%d %H:%M:%S"), rental.pickup_location, rental.cost_per_day, rental.total_rent)
+        self.cursor.execute(query, values)
+        self.conn.commit()
+
 
 
 
