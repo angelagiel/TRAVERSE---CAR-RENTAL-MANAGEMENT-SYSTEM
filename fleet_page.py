@@ -36,7 +36,7 @@ class FleetPage(tk.Frame):
         self.search_field.bind('<KeyRelease>', self.update_table)
         
         #----- TABLE 
-        columns = ('id', 'brand', 'model', 'plate#', 'fuel', 'cost', 'seating capacity', 'location', 'availability')
+        columns = ('id', 'brand', 'model', 'plate#', 'fuel', 'cost', 'seating capacity', 'location', 'status')
         
         self.table = ttk.Treeview(self, columns=columns, show='headings')
         
@@ -49,7 +49,7 @@ class FleetPage(tk.Frame):
         self.table.heading('cost', text='Cost/Day')
         self.table.heading('seating capacity', text='Seaters')
         self.table.heading('location', text='Location')
-        self.table.heading('availability', text='Status')
+        self.table.heading('status', text='Status')
         
         self.table.grid(row=2, column=0, padx=(100, 100))
 
@@ -63,7 +63,7 @@ class FleetPage(tk.Frame):
         self.table.column('cost', width=120)
         self.table.column('seating capacity', width=90)
         self.table.column('location', width=145)
-        self.table.column('availability', width=145)
+        self.table.column('status', width=145)
         # self.table.tag_configure("center", anchor="center")
         self.update_table()
         
@@ -79,31 +79,48 @@ class FleetPage(tk.Frame):
         self.view_car.grid(row=3, column=0, padx=(60, 100), pady=(20,0))
         
     def update_table(self, event=None):
-        # pass
         self.get_car_list()
-
-        self.table.delete(*self.table.get_children())
-        #----- TRIAL
-        # logo = Image.open("250traverse logo.png")
-        # logo = logo.resize((150, 150))
-        # self.logo = ImageTk.PhotoImage(logo)
+        rental_data = self.get_rental_data()
         
+        self.table.delete(*self.table.get_children())
+
         for car in self.car_list:
-            if car.availability != 1:
-                car.availabilty = 'Not Available'
+            car_data = (car.id, car.brand, car.model, car.plate_number, car.fuel_type, car.cost_per_day, car.seating_capacity, car.location)
+            
+            if car.id in rental_data: 
+                rental_info = rental_data[car.id]
+                row = car_data + (rental_info,)
             else: 
-                car.availability = 'Available'
+                 row = car_data + ('----',)
                 
-            row = (car.id, car.brand, car.model, car.plate_number, car.fuel_type, car.cost_per_day, car.seating_capacity, car.location, car.availability)
-            self.table.insert('', tk.END, values=row)   
+            self.table.insert('', tk.END, values=row)
 
 
     def get_car_list(self):
-        # pass
         key = self.search_field.get()
         db_conn = database_handler.DBHandler()
         self.car_list = db_conn.search_car(key)
+        
+        self.rental_statuses = db_conn.get_rental_statuses()
         db_conn.close()
+    
+    def get_rental_data(self):
+        db_conn = database_handler.DBHandler()
+        rentals = db_conn.search_rental()
+        db_conn.close()
+
+        rental_data = {}  # Dictionary to store rental data for each customer
+        for rental in rentals:
+            if rental.car_id not in rental_data:
+                if rental.rental_status == "UNAVAILABLE": 
+                    rental.rental_status = "CURRENTLY RENTED"
+                    rental_data[rental.car_id] = (
+                        rental.rental_status
+
+                )
+        return rental_data
+
+    
     
     def delete_car(self): 
         selected_items = self.table.selection()

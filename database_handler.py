@@ -87,9 +87,6 @@ class DBHandler:
 
         return accounts
 
-    def close(self):
-        self.conn.close()
-
 #---------- CAR DATABASE
 
     def search_car(self, key):
@@ -216,6 +213,17 @@ class DBHandler:
         self.conn.commit()
 
 
+    def get_rental_statuses(self):
+        query = f'SELECT car_id, rental_status FROM {self.rentals_table}'
+        self.cursor.execute(query)
+        
+        rental_statuses = {}
+        for row in self.cursor:
+            rental_statuses[row[0]] = row[1]
+        return rental_statuses
+
+    def close(self):
+        self.conn.close()
 
 
 DBHandler().read_accounts()
