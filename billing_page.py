@@ -28,7 +28,7 @@ class BillingPage(tk.Frame):
         self.heading.grid(row=0, column=0, columnspan=5, pady=(0, 0), padx=(450, 0), sticky='w')
         
         #----- CUSTOMER FRAME FIELDS
-        self.customer_frame = tk.Frame(self, width=600, border=1)
+        self.customer_frame = tk.Frame(self, width=600, border=5 )
         self.customer_frame.grid(row=1, column=0, sticky='nw', pady=(0,0), padx=(100,0))
         
         tk.Label(self.customer_frame, text="Customer ID:", bg='white').grid(row=0, column=0, sticky='w')
@@ -49,7 +49,7 @@ class BillingPage(tk.Frame):
         
         #----- CAR FRAME FIELDS
         
-        self.car_frame = tk.Frame(self,border=1)
+        self.car_frame = tk.Frame(self,border=5)
         self.car_frame.grid(row=1, column=0, sticky='nw', pady=(100,0))
         self.car_frame.config(bg='white')
         
@@ -97,9 +97,10 @@ class BillingPage(tk.Frame):
         self.rental_period_entry = Entry(self.car_frame, width=25)
         self.rental_period_entry.grid(row=9, column=3)
         
-        self.confirm_rent = Button(self.car_frame, text='Confirm Rent', pady=5, padx=10, bg='#4caf50', fg='white', width=25, command=self.confirm_rent_clicked)
-        self.confirm_rent.grid(row=10, column=3, pady=(20,0), padx=(0, 60))
+        self.confirm_rent = Button(self.car_frame, text='Confirm Rent', pady=2, padx=7, bg='#4caf50', fg='white', width=25, command=self.confirm_rent_clicked)
+        self.confirm_rent.grid(row=10, column=3, pady=(20,0), padx=(10, 60))
         
+        tk.Button(self.car_frame, text="Logout", pady=2, padx=7, bg='#4caf50', fg='white', width=14,  command=self.go_to_login_page).grid(row=10, column=2, pady=(20,0), padx=(0, 0))
 
         
         #----- BILLING FRAME FIELDS
@@ -115,38 +116,36 @@ class BillingPage(tk.Frame):
         self.customer_name_entry_billing.grid(row=1, column=1, padx=10, pady=10)
         
         tk.Label(self.billing_frame, text="Rented Model:").grid(row=2, column=0, sticky='w', padx=10, pady=10)
-        self.rented_model_entry = Entry(self.billing_frame)
-        self.rented_model_entry.grid(row=2, column=1, padx=10, pady=10)
+        self.rented_model_entry_billing = Entry(self.billing_frame)
+        self.rented_model_entry_billing.grid(row=2, column=1, padx=10, pady=10)
         
-        tk.Label(self.billing_frame, text="Rented Date:").grid(row=3, column=0, sticky='w', padx=10, pady=10)
-        self.rented_date_entry = Entry(self.billing_frame)
-        self.rented_date_entry.grid(row=3, column=1, padx=10, pady=10)
+        tk.Label(self.billing_frame, text="Rented Date-Time:").grid(row=3, column=0, sticky='w', padx=10, pady=10)
+        self.rented_date_entry_billing = Entry(self.billing_frame)
+        self.rented_date_entry_billing.grid(row=3, column=1, padx=10, pady=10)
         
-        tk.Label(self.billing_frame, text="Rented Time:").grid(row=4, column=0, sticky='w', padx=10, pady=10)
-        self.rented_time_entry = Entry(self.billing_frame)
-        self.rented_time_entry.grid(row=4, column=1, padx=10, pady=10)
+        tk.Label(self.billing_frame, text="Rental Period:").grid(row=4, column=0, sticky='w', padx=10, pady=10)
+        self.rental_period_entry_billing = Entry(self.billing_frame)
+        self.rental_period_entry_billing.grid(row=4, column=1, padx=10, pady=10)
         
-        tk.Label(self.billing_frame, text="Rental Period:").grid(row=5, column=0, sticky='w', padx=10, pady=10)
-        self.rental_period_entry = Entry(self.billing_frame)
-        self.rental_period_entry.grid(row=5, column=1, padx=10, pady=10)
+        tk.Label(self.billing_frame, text="Return Date-Time:").grid(row=5, column=0, sticky='w', padx=10, pady=10)
+        self.return_date_entry_billing = Entry(self.billing_frame)
+        self.return_date_entry_billing.grid(row=5, column=1, padx=10, pady=10)
         
-        tk.Label(self.billing_frame, text="Return Date:").grid(row=6, column=0, sticky='w', padx=10, pady=10)
-        self.return_date_entry = Entry(self.billing_frame)
-        self.return_date_entry.grid(row=6, column=1, padx=10, pady=10)
+        tk.Label(self.billing_frame, text="Pickup Location:").grid(row=6, column=0, sticky='w', padx=10, pady=10)
+        self.pickup_location_entry_billing = Entry(self.billing_frame)
+        self.pickup_location_entry_billing.grid(row=6, column=1, padx=10, pady=10)
         
-        tk.Label(self.billing_frame, text="Pickup Location:").grid(row=7, column=0, sticky='w', padx=10, pady=10)
-        self.pickup_location_entry = Entry(self.billing_frame)
-        self.pickup_location_entry.grid(row=7, column=1, padx=10, pady=10)
-        
-        tk.Label(self.billing_frame, text="Cost Per Day:").grid(row=8, column=0, sticky='w', padx=10, pady=10)
+        tk.Label(self.billing_frame, text="Cost Per Day:").grid(row=7, column=0, sticky='w', padx=10, pady=10)
         self.cost_per_day_billing_entry = Entry(self.billing_frame)
-        self.cost_per_day_billing_entry.grid(row=8, column=1, padx=10, pady=10)
+        self.cost_per_day_billing_entry.grid(row=7, column=1, padx=10, pady=10)
         
-        tk.Label(self.billing_frame, text="================================:").grid(row=9, column=0, columnspan=2, sticky='w', padx=10, pady=10)
+        tk.Label(self.billing_frame, text="================================:").grid(row=8, column=0, columnspan=2, sticky='w', padx=10, pady=10)
         
-        tk.Label(self.billing_frame, text="Total Rent:").grid(row=10, column=0, sticky='w', padx=10, pady=10)
+        tk.Label(self.billing_frame, text="Total Rent:").grid(row=9, column=0, sticky='w', padx=10, pady=10)
         self.total_rent_entry = Entry(self.billing_frame)
-        self.total_rent_entry.grid(row=10, column=1, padx=10, pady=10)
+        self.total_rent_entry.grid(row=9, column=1, padx=10, pady=10)
+        
+        
         
 
     def on_return(self, **kwargs):
@@ -199,28 +198,61 @@ class BillingPage(tk.Frame):
         self.location_entry.delete(0, tk.END)
         self.cost_per_day_entry.delete(0, tk.END)
 
-
+    def clear_billing_fields(self): 
         
-    def confirm_rent_clicked(self): 
-        self.rental_status = 'UNAVAILABLE'
+        self.customer_name_entry_billing.delete(0, tk.END)
+        self.rented_model_entry_billing.delete(0, tk.END)
+        self.rented_date_entry_billing.delete(0, tk.END)
+        self.rental_period_entry_billing.delete(0, tk.END)
+        self.return_date_entry_billing.delete(0, tk.END)
+        self.pickup_location_entry_billing.delete(0, tk.END)
+        self.cost_per_day_billing_entry.delete(0, tk.END)
+        self.total_rent_entry.delete(0, tk.END)
+        
+        
+        
+        
+    def confirm_rent_clicked(self):
+        current_datetime = datetime.now()
+        rental_period = int(self.rental_period_entry.get())
+        cost_per_day = float(self.cost_per_day_entry.get())  
 
         new_rental = models.Rental()
         new_rental.customer_id = self.customer_id_entry.get()
         new_rental.customer_name = self.customer_name_entry.get()  
         new_rental.car_id = self.car_id_entry.get()
-        new_rental.rental_status = self.rental_status
+        new_rental.rental_status = "UNAVAILABLE"
         new_rental.rented_model = self.car_model_entry.get()
         new_rental.rent_plateNo = self.plate_number_entry.get()
-        new_rental.rental_period = self.rental_period_entry.get()
-        new_rental.rent_date = datetime.now().date()
-        new_rental.rent_time = datetime.now().time()
-        new_rental.return_date = datetime.now().date()
+        new_rental.rental_period = rental_period
+        new_rental.rent_datetime = current_datetime  # Store datetime object directly
+
+        # Calculate return datetime
+        return_datetime = current_datetime + timedelta(days=rental_period)
+
+        new_rental.return_datetime = return_datetime  # Store datetime object directly
+
         new_rental.pickup_location = self.location_entry.get()
-        new_rental.cost_per_day = self.cost_per_day_entry.get()
-        new_rental.total_rent = float(self.cost_per_day_entry.get() + self.rental_period_entry.get())
+        new_rental.cost_per_day = cost_per_day
+        new_rental.total_rent = cost_per_day * rental_period
 
         db_conn = database_handler.DBHandler()
         db_conn.add_rental(new_rental)
         db_conn.close()
+        
+        self.clear_billing_fields()
+        
+        self.customer_name_entry_billing.insert(0, new_rental.customer_name)
+        self.rented_model_entry_billing.insert(0, new_rental.rented_model)
+        self.rented_date_entry_billing.insert(0, new_rental.rent_datetime.strftime("%Y-%m-%d %H:%M:%S"))
+        self.rental_period_entry_billing.insert(0, new_rental.rental_period)
+        self.return_date_entry_billing.insert(0, new_rental.return_datetime.strftime("%Y-%m-%d %H:%M:%S"))
+        self.pickup_location_entry_billing.insert(0, new_rental.pickup_location)
+        self.cost_per_day_billing_entry.insert(0, new_rental.cost_per_day)
+        self.total_rent_entry.insert(0, new_rental.total_rent)
 
-                
+        self.confirm_rent.focus_set()
+
+        
+    def go_to_login_page(self): 
+        self.parent.change_window('Login_Page')

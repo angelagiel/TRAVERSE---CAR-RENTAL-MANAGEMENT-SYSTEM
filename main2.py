@@ -27,13 +27,13 @@ class MainWindow(tk.Tk):
         self.frames['Billing_Page'] = billing_page.BillingPage(self)
         
         self.change_window('Update_Form')
-        self.change_window('Members_Page')
-        self.change_window('View_Car')
-        self.change_window('Fleet_Page')
-        self.change_window('Admin_Dashboard')
         self.change_window('Signup_Page')
-        self.change_window('Customer_Window')
+        self.change_window('Admin_Dashboard')
+        self.change_window('View_Car')
         self.change_window('Billing_Page')
+        self.change_window('Members_Page')
+        self.change_window('Fleet_Page')
+        self.change_window('Customer_Window')
         self.change_window('Login_Page')
         
 

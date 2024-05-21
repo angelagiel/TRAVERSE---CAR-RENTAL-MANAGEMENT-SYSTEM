@@ -121,6 +121,9 @@ WHERE account_type = 'customer';
 DELETE FROM accounts
 WHERE account_type = 'admin';
 
+DELETE FROM rental
+WHERE rental_status = 'UNAVAILABLE';
+
 DROP TABLE cars;
 DROP TABLE rental;
 
