@@ -119,6 +119,9 @@ DELETE FROM accounts
 WHERE account_type = 'customer';
 
 DELETE FROM accounts
+WHERE id = 8;
+
+DELETE FROM accounts
 WHERE account_type = 'admin';
 
 DELETE FROM rental
