@@ -1,12 +1,5 @@
 import tkinter as tk 
 import pages
-import members_page
-import updateform_page
-import fleet_page
-import car_page
-import customer_window
-import billing_page
-import signup_page
 
 class MainWindow(tk.Tk):
     def __init__(self): 
@@ -16,15 +9,14 @@ class MainWindow(tk.Tk):
         self.geometry("1200x700")
         self.frames = dict()
         self.frames['Login_Page'] = pages.LoginPage(self)
-        self.frames["Signup_Page"] = signup_page.SignupPage(self)
+        self.frames["Signup_Page"] = pages.SignupPage(self)
         self.frames['Admin_Dashboard'] = pages.AdminDashboard(self)
-        self.frames['Members_Page'] = members_page.MembersPage(self)
-        self.frames['Revenue_Page'] = pages.RevenuePage(self)
-        self.frames['Update_Form'] = updateform_page.UpdateForm(self)
-        self.frames['Fleet_Page'] = fleet_page.FleetPage(self)
-        self.frames['Customer_Window'] = customer_window.CustomerWindow(self)
-        self.frames['View_Car'] = car_page.CarPage(self)
-        self.frames['Billing_Page'] = billing_page.BillingPage(self)
+        self.frames['Members_Page'] = pages.MembersPage(self)
+        self.frames['Update_Form'] = pages.UpdateForm(self)
+        self.frames['Fleet_Page'] = pages.FleetPage(self)
+        self.frames['View_Car'] = pages.CarPage(self)
+        self.frames['Customer_Window'] = pages.CustomerWindow(self)
+        self.frames['Billing_Page'] = pages.BillingPage(self)
         
 
         self.change_window('Login_Page')
